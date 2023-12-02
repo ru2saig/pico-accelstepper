@@ -1,0 +1,5 @@
+add_executable(proportional_control ProportionalControl.cpp)
+
+target_link_libraries(proportional_control accelstepper hardware_adc)
+
+pico_add_extra_outputs(proportional_control)

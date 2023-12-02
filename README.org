@@ -1,0 +1,91 @@
+* Pico-AccelStepper
+This fork of the  [[http://www.airspayce.com/mikem/arduino/AccelStepper/][AccelStepper]] library is a port of the library to make it work with the Raspberry Pi Pico board (and variants) using the [[https://github.com/raspberrypi/pico-sdk][Pico SDK]]. 
+
+List of features:
+- Supports acceleration and deceleration
+- Supports multiple simultaneous steppers, with independent concurrent stepping on each stepper
+- API functions never delay() or block
+- Supports 2, 3 and 4 wire steppers, plus 3 and 4 wire half steppers.
+- +Supports alternate stepping functions to enable support of AFMotor (https://github.com/adafruit/Adafruit-Motor-Shield-library)+
+- Supports stepper drivers such as the Sparkfun EasyDriver (based on 3967 driver chip)
+- Very slow speeds are supported
+- Extensive API
+- Subclass support
+
+All the examples (except 2) have been modified to reflect program structure for the Pico using the Pico SDK. The original examples are the original work of Mike McCauley. 
+
+** Using
+Make sure to set PICO_SDK_PATH properly. I'll assume that you, the breathtaking reader, have successfully compiled, and loaded a program onto your Pico board. Here's a great getting started guide if you haven't, yet: [[https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf][getting-started-with-pico.pdf]].
+
+Essentially, it's "Clone this repo under your project, and use add_subdirectory to your CMakeLists.txt and then link the library". Here's an example:
+
+The structure is like this:
+#+BEGIN_SRC shell
+  |- CMakeLists.txt
+  |- main.cpp
+  |- pico-accelstepper # this repo!
+#+END_SRC
+
+Here's the CMakeLists.txt file:
+#+BEGIN_SRC cmake
+  cmake_minimum_required(VERSION 3.14)
+  set(PROJECT test)
+
+  include($ENV{PICO_SDK_PATH}/pico_sdk_init.cmake)
+
+  project(${PROJECT} C CXX ASM)
+  set(CMAKE_C_STANDARD 11)
+  set(CMAKE_CXX_STANDARD 17)
+
+  pico_sdk_init()
+
+  add_executable(test main.cpp)
+
+  add_subdirectory(pico-accelstepper) # or what you've named it as
+
+  target_link_libraries(test accelstepper) # yes the library name is different 
+
+  # create all those bin/hex files
+  pico_add_extra_outputs(test) 
+#+END_SRC
+
+Here's main.cpp:
+#+BEGIN_SRC c++
+  #include <AccelStepper.h>
+
+  int main()
+  {
+      AccelStepper stepper;
+
+      stepper.setMaxSpeed(100);
+      stepper.setAcceleration(200);
+      stepper.moveTo(1000);
+
+      while (true)
+          stepper.run();
+    
+  }
+#+END_SRC
+
+Now configuring and building it:
+#+BEGIN_SRC shell
+  # make sure to set PICO_SDK_PATH before this
+  cmake -S . -B build
+  cmake --build build
+  picotool load build/main.uf2 # or just move it using cp or something 
+#+END_SRC
+
+See [[https://github.com/raspberrypi/picotool][pictool]] for more information on that tool.
+
+** Examples
+The AFMotor examples (AFMotor_ConstantSpeed and AFMotor_MultiStepper) have not been ported because the library used in it [[https://github.com/adafruit/Adafruit-Motor-Shield-library][Adafruit-Motor-Shield-Library]] has been deprecated.
+
+The examples can be built by setting the BUILD_EXAMPLES option:
+#+BEGIN_SRC shell
+  # from the project root directory
+  cmake -S . -B build -DBUILD_EXAMPLES=ON # out of source build ftw
+  cmake --build build
+#+END_SRC
+
+** Contributing
+PRs are welcome, just be respectful!

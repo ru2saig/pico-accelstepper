@@ -1,0 +1,5 @@
+add_executable(constant_speed ConstantSpeed.cpp)
+
+target_link_libraries(constant_speed accelstepper)
+
+pico_add_extra_outputs(constant_speed)

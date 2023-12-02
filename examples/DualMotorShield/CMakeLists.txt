@@ -1,0 +1,5 @@
+add_executable(dual_motor_shield DualMotorShield.cpp)
+
+target_link_libraries(dual_motor_shield accelstepper)
+
+pico_add_extra_outputs(dual_motor_shield)
