@@ -75,7 +75,7 @@ Now configuring and building it:
   picotool load build/main.uf2 # or just move it using cp or something 
 #+END_SRC
 
-See [[https://github.com/raspberrypi/picotool][pictool]] for more information on that tool.
+See [[https://github.com/raspberrypi/picotool][picotool]] for more information on that tool.
 
 ** Examples
 The AFMotor examples (AFMotor_ConstantSpeed and AFMotor_MultiStepper) have not been ported because the library used in it [[https://github.com/adafruit/Adafruit-Motor-Shield-library][Adafruit-Motor-Shield-Library]] has been deprecated.
