@@ -15,7 +15,7 @@ List of features:
 All the examples (except 2) have been modified to reflect program structure for the Pico using the Pico SDK. The original examples are the original work of Mike McCauley. 
 
 ** Using
-Make sure to set PICO_SDK_PATH properly. I'll assume that you, the breathtaking reader, have successfully compiled, and loaded a program onto your Pico board. Here's a great getting started guide if you haven't, yet: [[https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf][getting-started-with-pico.pdf]].
+I'll assume that you, the breathtaking reader, have successfully compiled, and loaded a program onto your Pico board. Here's a great getting started guide if you haven't, yet: [[https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf][getting-started-with-pico.pdf]].
 
 Essentially, it's "Clone this repo under your project, and use add_subdirectory to your CMakeLists.txt and then link the library". Here's an example:
 
