@@ -650,8 +650,8 @@ void AccelStepper::setPinsInverted(bool pin1Invert, bool pin2Invert, bool pin3In
 // Blocks until the target position is reached and stopped
 void AccelStepper::runToPosition()
 {
-    while (run());
-    // YIELD; // TODO: Does the pico need this? Does system housekeeping need to occur
+    while (run())
+	tight_loop_contents();
 }
 
 bool AccelStepper::runSpeedToPosition()
